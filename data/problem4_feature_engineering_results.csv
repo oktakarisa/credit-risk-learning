@@ -1,0 +1,6 @@
+Pattern,AUC_Score
+Baseline,0.7108
+Income_Credit_Ratio,0.7091
+Log_Transform,0.71
+Age_Features,0.7158
+Income_Annuity_Ratio,0.7133
