@@ -130,9 +130,3 @@ This project is for educational purposes.
 **Date:** 04/10/2025
 
 
-git init
-git add .
-git commit -m "Initial Commit of Credit Risk Learing Assignment "
-git branch -M main
-git remote add origin git@github.com:oktakarisa/credit-risk-learning.git
-git push -u origin main
