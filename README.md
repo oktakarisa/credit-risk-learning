@@ -20,22 +20,21 @@ credit-risk-learning/
 ├───plots
 ├───reports
 │   problem_1_confirmation_report.md
+│   kaggle_submission_score.png
 │
 │───scr
 │   problem_1_confirmation.py
 │   problem_2_baseline_model.py
 │   problem_3_test_estimation.py
-│   problem_4_feature_engineering.py
-  
-
+│   problem_4_feature_engineering.py 
 ```
 
 ## Setup & Installation
 1. Clone this repository.
 2. Install dependencies:
-   ```bash
+```bash
    pip install -r requirements.txt
-   ```
+```
 3. Download the Kaggle dataset and place it in the `data/` directory.
 
 ## Usage
@@ -78,8 +77,16 @@ Preview of first 10 predictions:
 
 -----------
 
-## Problem 3: Test Data Estimation
-Preview of first 10 predictions for submission:
+## Problem 3: Test Data Estimation and Kaggle Submission
+
+### Kaggle Submission Score
+**Public Leaderboard Score**: View screenshot at [reports/kaggle_submission_score.png](reports/kaggle_submission_score.png)
+
+![Kaggle Submission Score](reports/kaggle_submission_score.png)
+
+*Note: If the image does not load, the Kaggle submission file `problem3_test_submission.csv` was successfully uploaded to the competition leaderboard. The submission contains predictions for all test data samples.*
+
+### Preview of first 10 predictions for submission:
 
 |    |   SK_ID_CURR |   TARGET |
 |----|--------------|----------|
@@ -94,25 +101,54 @@ Preview of first 10 predictions for submission:
 |  8 |       100066 |     0.06 |
 |  9 |       100067 |     0.12 |
 
------------
-
-## Problem 4: Feature Engineering
-Comparison of 5 feature patterns based on validation AUC:
-
-|    | Pattern              |   AUC_Score |
-|----|----------------------|-------------|
-|  0 | Baseline             |      0.7108 |
-|  1 | Income_Credit_Ratio  |      0.7091 |
-|  2 | Log_Transform        |      0.71   |
-|  3 | Age_Features         |      0.7158 |
-|  4 | Income_Annuity_Ratio |      0.7133 |
+------------
+------------
 
 
------------
+## Problem 4: Advanced Feature Engineering (IMPROVED)
+
+### Overview
+This improved solution incorporates features from multiple auxiliary datasets:
+- Bureau credit history
+- Previous Home Credit applications
+- Installment payment history
+- Credit card balance history
+- POS and cash loan history
+
+### Results Summary
+Trained and evaluated 10 different feature engineering patterns using LightGBM:
+
+| Pattern             |   Features |   AUC_Score |
+|---------------------|------------|-------------|
+| P10_All_Features    |        231 |      0.785  |
+| P9_PrevApp_Inst_POS |        186 |      0.7809 |
+| P8_Bureau_Inst_CC   |        192 |      0.7805 |
+| P7_Bureau_PrevApp   |        180 |      0.7768 |
+| P5_Installments     |        147 |      0.7749 |
+| P4_Previous_App     |        158 |      0.7744 |
+| P3_Bureau           |        154 |      0.7723 |
+| P6_Credit_Card      |        155 |      0.7702 |
+| P2_Domain_Features  |        132 |      0.7678 |
+| P1_Baseline         |        120 |      0.7608 |
+
+### Key Findings
+- **Best Pattern**: P10_All_Features with **231 features**
+- **Best AUC Score**: **0.7850**
+- **Improvement over baseline**: **+0.0242** (3.18%)
+
+### Feature Engineering Techniques Used
+1. Aggregated statistics from auxiliary tables (mean, max, min, sum, count)
+2. Domain-specific financial ratios (income/credit, credit utilization)
+3. Time-based features (age, employment duration, payment delays)
+4. Behavioral features (late payments, document submission counts)
+5. External score combinations and interactions
+
+Full results available in [data/problem4_improved_results.csv](data/problem4_improved_results.csv)
+
 
 ## References
 - [Home Credit Default Risk Kaggle Competition](https://www.kaggle.com/c/home-credit-default-risk)
-- See `reports/` for detailed problem reports.
+- See reports/ for detailed problem reports.
 
 -----------
 
@@ -127,6 +163,6 @@ This project is for educational purposes.
 
 **Name:** Victor Karisa
 
-**Date:** 04/10/2025
+**Date:** 04/10/2025 
 
-
+-----------
